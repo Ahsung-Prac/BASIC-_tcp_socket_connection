@@ -34,23 +34,21 @@ int main(int argc, char * argv[]) {
 		exit(1);
 	}
 	
-	//¼ÒÄÏ »ı¼º
+	//ì†Œì¼“ ìƒì„±
 	hserveSock = socket(PF_INET, SOCK_STREAM, 0);
 	if (hserveSock == -1) {
 		erromessage("server can't open");
 	}
-	//server ¿¿¿¿ ¿¿
-	/*memset(&servAddr, 0, sizeof(servAddr));
-	servAddr.sin_family = AF_INET;
-	servAddr.sin_addr.s_addr = htonl(INADDR_ANY);
-	servAddr.sin_port = htons(atoi(argv[1]));*/
+
+	//ì†Œì¼“ í¬íŠ¸ ì§€ì •
 	setSOCKIN(servAddr,argv[1]);
 
-	// bind ¿¿ port ¿¿
+	// bind 
 	if (bind(hserveSock, (sockaddr *)&servAddr, sizeof(servAddr)) == -1) {
 		erromessage("bind fail");
 	}
-	// listen ¿¿ 
+	
+	// listen 
 	if (listen(hserveSock, 5) == -1) erromessage("listen fail");
 	
 	szClntAddr = sizeof(clntaddr);
@@ -61,7 +59,7 @@ int main(int argc, char * argv[]) {
 	
 	if (hClntSock == -1) erromessage("accep fail");
 	
-	// ¿¿¿ ¿¿ 
+	// Â¿Â¿Â¿ Â¿Â¿ 
 	write(hClntSock, message, sizeof(message));
 	cout << "message send success !" << endl;
 	close(hserveSock);
